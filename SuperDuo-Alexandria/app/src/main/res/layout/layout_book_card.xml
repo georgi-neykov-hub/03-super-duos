@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/searchCard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <include
+            android:id="@+id/titleComponent"
+            layout="@layout/card_title_component"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/bookCover"
+            android:layout_toStartOf="@+id/bookCover"/>
+
+        <ImageView
+            android:id="@+id/bookCover"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:contentDescription="@string/book_cover"
+            tools:background="#F0F"/>
+
+        <LinearLayout
+            android:id="@+id/actionComponent"
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/supportingTextComponent">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:id="@+id/addBookAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_add_book"
+                android:layout_gravity="end|right"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/supportingTextComponent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bookCover"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/authors"
+                tools:text="George Lucas, Wookie, R2-DA, Luke, Dart Vaider, Jaba"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"/>
+
+            <TextView
+                android:id="@+id/categories"
+                tools:text="Science Fiction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+

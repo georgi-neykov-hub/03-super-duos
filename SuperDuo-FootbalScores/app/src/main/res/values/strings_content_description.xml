@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_description_item_share">Share Match via</string>
+    <string name="content_description_away_crest">Away Team Crest</string>
+    <string name="content_description_home_crest">Home Team Crest</string>
+</resources>

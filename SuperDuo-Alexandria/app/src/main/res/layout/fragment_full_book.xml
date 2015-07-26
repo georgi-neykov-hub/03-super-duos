@@ -1,0 +1,89 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="false"
+    tools:context="it.jaschke.alexandria.AddBook">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fullBookTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/head_line"
+            android:textStyle="bold"
+            tools:text="The big small subtitle"/>
+
+        <ImageView
+            android:id="@+id/fullBookCover"
+            android:layout_width="@dimen/book_cover_image_size_full"
+            android:layout_height="@dimen/book_cover_image_size_full"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/fullBookSubTitle"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/book_cover"
+            tools:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/fullBookSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fullBookTitle"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:textSize="18sp"
+            tools:text="The big small subtitle"/>
+
+
+        <TextView
+            android:id="@+id/fullBookDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fullBookCover"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            tools:text="The description of a book about Star Wars that repeats to take more space." />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fullBookDesc"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/categories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start|top"
+                tools:text="Science Fiction" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/authors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|top"
+                android:textStyle="bold"
+                tools:text="Obi Wan Kenobi, Luke Skywalker" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

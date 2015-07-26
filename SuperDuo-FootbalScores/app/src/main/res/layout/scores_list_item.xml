@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/scoresContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:id="@+id/home_crest"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@+id/scores"
+                android:layout_toStartOf="@+id/scores"
+                tools:src="@drawable/chelsea"
+                android:contentDescription="@string/content_description_home_crest" />
+
+            <TextView
+                android:id="@+id/scores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/home_crest"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                tools:text="88:88" />
+
+            <ImageView
+                android:id="@+id/away_crest"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/scores"
+                android:layout_toRightOf="@+id/scores"
+                tools:src="@drawable/manchester_united"
+                android:contentDescription="@string/content_description_away_crest" />
+
+            <TextView
+                android:id="@+id/home_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/home_crest"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/home_crest"
+                android:layout_below="@+id/home_crest"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:text="Manchester United" />
+
+            <TextView
+                android:id="@+id/away_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/away_crest"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/home_name"
+                android:layout_alignStart="@+id/away_crest"
+                android:layout_below="@+id/away_crest"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:text="Manchester City" />
+
+            <TextView
+                android:id="@+id/data_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/home_name"
+                android:layout_alignEnd="@+id/scores"
+                android:layout_alignLeft="@+id/scores"
+                android:layout_alignRight="@+id/scores"
+                android:layout_alignStart="@+id/scores"
+                android:layout_alignTop="@+id/home_name"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:text="112:30" />
+
+            <TextView
+                android:id="@+id/league"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/data_textview"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:text="Premier League" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/scoresContainer"
+            android:background="#CCC" />
+
+        <LinearLayout
+            style="?buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/divider"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/share_button"
+                style="?buttonBarButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:src="@drawable/ic_social_share"
+                android:tint="?colorControlNormal"
+                android:contentDescription="@string/content_description_item_share" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
+
+
