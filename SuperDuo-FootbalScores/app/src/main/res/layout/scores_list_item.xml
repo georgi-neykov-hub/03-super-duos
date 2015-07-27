@@ -41,8 +41,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
-
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:contentDescription="@string/content_description_match_score"
                 tools:text="88:88" />
 
             <ImageView
@@ -61,10 +61,10 @@
                 android:id="@+id/home_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/home_crest"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignRight="@+id/home_crest"
+                android:layout_alignEnd="@+id/home_crest"
                 android:layout_below="@+id/home_crest"
                 android:gravity="center"
                 android:maxLines="2"
@@ -100,6 +100,7 @@
                 android:layout_alignTop="@+id/home_name"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:contentDescription="@string/content_description_match_time"
                 tools:text="112:30" />
 
             <TextView
@@ -112,7 +113,6 @@
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:text="Premier League" />
-
         </RelativeLayout>
 
         <View

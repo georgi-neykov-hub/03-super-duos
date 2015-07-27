@@ -37,12 +37,12 @@
     <string name="label_refresh">Refresh</string>
 
     <string-array name="names_of_days">
-        <item >Monday</item>
-        <item >Tuesday</item>
-        <item >Wednesday</item>
-        <item >Thursday</item>
-        <item >Friday</item>
-        <item >Saturday</item>
-        <item >Sunday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
     </string-array>
 </resources>

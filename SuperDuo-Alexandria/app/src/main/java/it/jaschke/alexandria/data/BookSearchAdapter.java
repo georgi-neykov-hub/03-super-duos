@@ -1,5 +1,8 @@
 package it.jaschke.alexandria.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +65,20 @@ public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.Bo
             mItems.clear();
             this.notifyDataSetChanged();
         }
+    }
+
+    public Parcelable onSaveInstanceState(){
+        return new SavedState(mItems);
+    }
+
+    public void onRestoreInstanceState(@NonNull Parcelable savedState){
+        if(savedState == null){
+            throw new IllegalArgumentException("Null savedState argument.");
+        }else if (!(savedState instanceof SavedState)){
+            throw new IllegalArgumentException("savedState argument not obtained through onSaveInstanceState().");
+        }
+
+        mItems = ((SavedState)savedState).mItems;
     }
 
     private final BookCardViewHolder.OnItemViewClickListener mItemClickListener = new BookCardViewHolder.OnItemViewClickListener() {
@@ -156,4 +173,38 @@ public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.Bo
             }
         }
     }
+
+    private static class SavedState implements Parcelable{
+        private List<Book> mItems;
+
+        public SavedState(List<Book> mItems) {
+            this.mItems = mItems;
+        }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeTypedList(mItems);
+        }
+
+        protected SavedState(Parcel in) {
+            this.mItems = in.createTypedArrayList(Book.CREATOR);
+        }
+
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel source) {
+                return new SavedState(source);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
 }

@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 import de.greenrobot.event.EventBus;
 import it.jaschke.alexandria.R;
@@ -39,21 +38,14 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
 
     public static final String TAG = AddBookFragment.class.getSimpleName();
     private static final String ARG_BOOK_ISBN = "AddBookFragment.ISBN Argument";
-    private static final int LOADER_ID = "AddBookFragment.SEARCH_LOADER".hashCode();
+    private static final String KEY_ADAPTER_STATE = "AddBookFragment.KEY_ADAPTER_STATE";
+    private static final String KEY_RECYCLER_VIEW_STATE = "AddBookFragment.KEY_RECYCLER_VIEW_STATE";
     private static final String KEY_EAN_QUERY = "AddBookFragment.KEY_EAN_QUERY";
-    private static final Pattern ISBN_PATTERN = Pattern.compile("^(?:ISBN(?:-13)?:? )?(?= [0-9]{13}$ | (?=(?:[0-9]+[- ]){4})[- 0-9]{17}$) 97[89][- ]?[0-9]{1,5}[- ]? [0-9]+[- ]?[0-9]+[- ]?[0-9]$");
+    private static final int LOADER_ID = "AddBookFragment.SEARCH_LOADER".hashCode();
     private static final int REQUEST_CODE_SCAN = 0x234;
 
     public static AddBookFragment newInstance() {
         return new AddBookFragment();
-    }
-
-    public static AddBookFragment newInstance(String bookIsbn) {
-        Bundle args = new Bundle();
-        args.putString(ARG_BOOK_ISBN, bookIsbn);
-        AddBookFragment instance = new AddBookFragment();
-        instance.setArguments(args);
-        return instance;
     }
 
     public interface AddBookListener{
@@ -63,6 +55,7 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
     private SearchView mSearchView;
     private Button mScanButton;
     private RecyclerView mSearchResultsView;
+    private RecyclerView.LayoutManager mLayoutManager;
     private BookSearchAdapter mBookAdapter;
     private View mEmptySearchTextView;
     private View mProgressView;
@@ -84,19 +77,19 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onDestroyView() {
-        mSearchView = null;
-        mScanButton = null;
-        mSearchResultsView = null;
-        mEmptySearchTextView = null;
-        super.onDestroyView();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBookAdapter = new BookSearchAdapter();
+        if(savedInstanceState != null){
+            mBookAdapter.onRestoreInstanceState(savedInstanceState.getParcelable(KEY_ADAPTER_STATE));
+        }
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
         initializeViewReferences(rootView);
-        configureRecyclerView();
+        configureRecyclerView(savedInstanceState);
 
         mScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,11 +115,6 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
         return rootView;
     }
 
-    private void startScanActivity() {
-        Intent scanIntent = new Intent(getActivity(), ScanBookActivity.class);
-        startActivityForResult(scanIntent, REQUEST_CODE_SCAN);
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -139,8 +127,27 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(KEY_ADAPTER_STATE, mBookAdapter.onSaveInstanceState());
+        if(mLayoutManager != null){
+            outState.putParcelable(KEY_RECYCLER_VIEW_STATE, mLayoutManager.onSaveInstanceState());
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        mSearchView = null;
+        mScanButton = null;
+        mSearchResultsView = null;
+        mEmptySearchTextView = null;
+        super.onDestroyView();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        mBookAdapter.setAddItemClickListener(this);
         EventBus.getDefault().registerSticky(this);
     }
 
@@ -148,6 +155,7 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        mBookAdapter.setAddItemClickListener(null);
         ViewUtils.hideSoftwareKeyboard(getActivity());
     }
 
@@ -196,6 +204,7 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
+    @SuppressWarnings("unused")
     public void onEventMainThread(BookAddedEvent event){
         EventBus.getDefault().removeStickyEvent(event);
         toggleLoadingView(false);
@@ -205,6 +214,7 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
+    @SuppressWarnings("unused")
     public void onEventMainThread(BookAddFailedEvent event){
         EventBus.getDefault().removeStickyEvent(event);
         toggleLoadingView(false);
@@ -230,10 +240,13 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
         mProgressView = rootView.findViewById(R.id.progressIndicator);
     }
 
-    private void configureRecyclerView(){
-        mBookAdapter = new BookSearchAdapter();
-        mBookAdapter.setAddItemClickListener(this);
-        mSearchResultsView.setLayoutManager(new LinearLayoutManager(getActivity(), VERTICAL, false));
+    private void configureRecyclerView(Bundle savedInstanceState){
+        mLayoutManager = new LinearLayoutManager(getActivity(), VERTICAL, false);
+        if (savedInstanceState != null) {
+            mLayoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(KEY_RECYCLER_VIEW_STATE));
+        }
+
+        mSearchResultsView.setLayoutManager(mLayoutManager);
         mSearchResultsView.setAdapter(mBookAdapter);
         mSearchResultsView.setItemAnimator(new DefaultItemAnimator());
         RecyclerView.ItemDecoration decoration = new SpaceItemDecoration(
@@ -245,8 +258,13 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
         mSearchResultsView.addItemDecoration(decoration);
     }
 
+    private void startScanActivity() {
+        Intent scanIntent = new Intent(getActivity(), ScanBookActivity.class);
+        startActivityForResult(scanIntent, REQUEST_CODE_SCAN);
+    }
+
     private void toggleEmptyResultsView(boolean show){
-        mEmptySearchTextView.setVisibility(show? View.VISIBLE : View.INVISIBLE);
+        mEmptySearchTextView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void executeSearch(String eanQuery){

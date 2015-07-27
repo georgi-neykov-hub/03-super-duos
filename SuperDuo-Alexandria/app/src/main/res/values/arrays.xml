@@ -2,11 +2,12 @@
 <resources>
     <string-array name="pref_start_options">
         <item>@string/menu_label_list_of_books</item>
-        <item>@string/menu_label_scan_code</item>
+        <item>@string/menu_label_enter_isbn_number</item>
     </string-array>
 
     <string-array name="pref_start_values">
         <item>0</item>
         <item>1</item>
     </string-array>
+    <string name="pref_start_options_default_value">1</string>
 </resources>

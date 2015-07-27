@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import barqsoft.footballscores.service.ScoresFetchService;
 
@@ -96,9 +97,10 @@ public class MainActivity extends AppCompatActivity
         public TabPageAdapter(Context context, FragmentManager fm) {
             super(fm);
             mContext = context.getApplicationContext();
+            long now = System.currentTimeMillis();
             dates = new Date[NUM_PAGES];
             for (int i = 0; i < NUM_PAGES; i++) {
-                dates[i] = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
+                dates[i] = new Date(now + ((i - 2) * 86400000));
             }
         }
 
@@ -124,9 +126,9 @@ public class MainActivity extends AppCompatActivity
             if(DateUtils.isToday(date.getTime())){
                 return context.getString(R.string.today);
             }else {
-                Calendar calendar = Calendar.getInstance();
+                Calendar calendar = Calendar.getInstance(Locale.US);
                 calendar.setTime(date);
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
                 return context.getResources().getStringArray(R.array.names_of_days)[dayOfWeek];
             }
         }
