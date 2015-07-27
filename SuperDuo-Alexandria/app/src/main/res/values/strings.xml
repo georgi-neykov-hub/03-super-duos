@@ -40,5 +40,5 @@
     <string name="message_isbn_hint_length">ISBNs have 13 digits</string>
     <string name="message_isbn_hint_digits">Enter digits only</string>
     <string name="message_isbn_hint_content">This is not an isbn number</string>
-
+    <string name="preferences_key" translatable="false">pref_startFragment</string>
 </resources>

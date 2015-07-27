@@ -5,7 +5,7 @@
         android:defaultValue="@string/pref_start_options_default_value"
         android:entries="@array/pref_start_options"
         android:entryValues="@array/pref_start_values"
-        android:key="pref_startFragment"
+        android:key="@string/preferences_key"
         android:persistent="true"
         android:summary="%s"
         android:title="@string/pref_startScreen" />

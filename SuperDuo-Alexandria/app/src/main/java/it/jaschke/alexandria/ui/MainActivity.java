@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setInitialScreen() {
         mInitialFragment = getSupportFragmentManager().findFragmentByTag(INITIAL_FRAGMENT_TAG);
         if(mInitialFragment == null){
-            String initialScreen = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString("pref_startFragment", "0");
+            String initialScreen = getSharedPreferences("AlexandriaPreferences", MODE_PRIVATE)
+                    .getString(getString(R.string.preferences_key), "0");
             mInitialFragment = initialScreen.equals("0")? BooksListContainerFragment.newInstance() : AddBookFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, mInitialFragment, INITIAL_FRAGMENT_TAG)
