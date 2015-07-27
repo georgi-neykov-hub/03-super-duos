@@ -32,32 +32,6 @@
                 android:contentDescription="@string/content_description_home_crest" />
 
             <TextView
-                android:id="@+id/scores"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/home_crest"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:contentDescription="@string/content_description_match_score"
-                tools:text="88:88" />
-
-            <ImageView
-                android:id="@+id/away_crest"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="8dp"
-                android:layout_toEndOf="@+id/scores"
-                android:layout_toRightOf="@+id/scores"
-                tools:src="@drawable/manchester_united"
-                android:contentDescription="@string/content_description_away_crest" />
-
-            <TextView
                 android:id="@+id/home_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +45,19 @@
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:text="Manchester United" />
+
+
+            <ImageView
+                android:id="@+id/away_crest"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/scores"
+                android:layout_toRightOf="@+id/scores"
+                tools:src="@drawable/manchester_united"
+                android:contentDescription="@string/content_description_away_crest" />
 
             <TextView
                 android:id="@+id/away_name"
@@ -87,6 +74,19 @@
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:text="Manchester City" />
+
+            <TextView
+                android:id="@+id/scores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/home_crest"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                tools:text="88:88" />
 
             <TextView
                 android:id="@+id/data_textview"

@@ -45,9 +45,12 @@ public class ScoresAdapter extends CursorAdapter {
         final ViewHolder mHolder = (ViewHolder) view.getTag();
         String homeTeamName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ScoresItem.HOME_NAME));
         mHolder.mHomeTeamNameView.setText(homeTeamName);
-
+        mHolder.mHomeTeamNameView.setContentDescription(
+                context.getString(R.string.content_description_home_team_format, homeTeamName));
         String awayTeamName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ScoresItem.AWAY_NAME));
         mHolder.mAwayTeamNameView.setText(awayTeamName);
+        mHolder.mAwayTeamNameView.setContentDescription(
+                context.getString(R.string.content_description_away_team_format, awayTeamName));
 
         String matchTime = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ScoresItem.MATCH_TIME));
         mHolder.mMatchDateTextView.setText(matchTime);
@@ -55,6 +58,8 @@ public class ScoresAdapter extends CursorAdapter {
         int homeGoals = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ScoresItem.HOME_GOALS));
         int awayGoals = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ScoresItem.AWAY_GOALS));
         mHolder.mMatchScoreTextView.setText(Utilies.getScores(homeGoals, awayGoals));
+        mHolder.mMatchScoreTextView.setContentDescription(
+                context.getString(R.string.content_description_score_format, homeGoals, awayGoals));
 
         mHolder.mHomeTeamCrestView.setImageResource(Utilies.getTeamCrestByTeamName(homeTeamName));
         mHolder.mAwayTeamCrestView.setImageResource(Utilies.getTeamCrestByTeamName(awayTeamName));

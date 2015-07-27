@@ -6,4 +6,8 @@
     <string name="content_description_match_time">Match time</string>
     <string name="content_description_match_score">Match Score</string>
     <string name="content_description_refresh_data">Refresh Data Button</string>
+    <string name="content_description_tab_format">Match scores for %s</string>
+    <string name="content_description_home_team_format">Home Team: %s</string>
+    <string name="content_description_away_team_format">Away Team: %s</string>
+    <string name="content_description_score_format">Score is %1$d by %2$d</string>
 </resources>

@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity
     private static final String KEY_PAGER_STATE = "MainActivity.KEY_PAGER_STATE";
 
     public ViewPager mTabViewPager;
+    private TabLayout mTabLayout;
+    private TabPageAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TabPageAdapter mPagerAdapter = new TabPageAdapter(this, getSupportFragmentManager());
+        mPagerAdapter = new TabPageAdapter(this, getSupportFragmentManager());
         mTabViewPager = (ViewPager) findViewById(R.id.pager);
         mTabViewPager.setAdapter(mPagerAdapter);
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setupWithViewPager(mTabViewPager);
-
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        configureAccessibilityFeatures();
         if(savedInstanceState == null){
             updateScores();
             mTabViewPager.setCurrentItem(2);
@@ -86,6 +89,15 @@ public class MainActivity extends AppCompatActivity
     private void updateScores() {
         Intent service_start = new Intent(this, ScoresFetchService.class);
         startService(service_start);
+    }
+
+    private void configureAccessibilityFeatures() {
+        for(int tabPosision = 0; tabPosision<mTabLayout.getTabCount(); tabPosision++) {
+            String contentDescription = getString(R.string.content_description_tab_format,
+                    mPagerAdapter.getPageTitle(tabPosision));
+            //noinspection ConstantConditions
+            mTabLayout.getTabAt(tabPosision).setContentDescription(contentDescription);
+        }
     }
 
     private static class TabPageAdapter extends FragmentStatePagerAdapter {
